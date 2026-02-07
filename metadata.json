@@ -1,0 +1,5 @@
+{
+  "name": "Copy of Trip Master - Google Sheets Integrated",
+  "description": "A comprehensive trip information management system with Admin and User panels, featuring Google Sheets data persistence, WhatsApp sharing, and printing capabilities.",
+  "requestFramePermissions": []
+}
