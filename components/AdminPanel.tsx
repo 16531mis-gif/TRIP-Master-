@@ -86,6 +86,14 @@ const AdminPanel: React.FC<AdminPanelProps> = ({ trips, onDeleteTrip, onUpdateTr
       setIsSavingGp(false);
     }
   };
+  
+  const handleCopyVehicleNumber = (vehicleNumber?: string) => {
+    if (!vehicleNumber) return;
+    const lastSix = vehicleNumber.replace(/\D/g, '').slice(-6);
+    if (lastSix.length > 0) {
+      handleCopyToClipboard(lastSix, `ID [${lastSix}]`);
+    }
+  };
 
   const handlePrint = (trip: TripData) => {
     const currentGp = trip.gpNumber || (trip.description.match(/^GP: (.*?)\./)?.[1] || 'N/A');
@@ -141,14 +149,14 @@ const AdminPanel: React.FC<AdminPanelProps> = ({ trips, onDeleteTrip, onUpdateTr
     );
   });
 
-  const DetailItem = ({ label, value, colorClass = 'text-white' }: { label: string, value: string | undefined, colorClass?: string }) => (
+  const DetailItem = ({ label, value, colorClass = 'text-white', onCopy }: { label: string, value: string | undefined, colorClass?: string, onCopy?: (value?: string) => void }) => (
     <div className="group flex items-center justify-between p-4 bg-black/30 rounded-xl border border-white/5 transition-colors hover:bg-black/50">
       <div>
         <p className="text-[10px] font-black uppercase tracking-[0.2em] text-zinc-600 mb-1">{label}</p>
         <p className={`font-mono font-bold ${colorClass}`}>{value || 'N/A'}</p>
       </div>
       <button 
-        onClick={() => handleCopyToClipboard(value, label)}
+        onClick={() => onCopy ? onCopy(value) : handleCopyToClipboard(value, label)}
         className="opacity-0 group-hover:opacity-100 text-zinc-500 hover:text-white transition-opacity duration-200"
         aria-label={`Copy ${label}`}
         disabled={!value || value === 'N/A'}
@@ -350,7 +358,7 @@ const AdminPanel: React.FC<AdminPanelProps> = ({ trips, onDeleteTrip, onUpdateTr
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <DetailItem label="Date" value={viewingTrip.date} />
                 <DetailItem label="Trip Type" value={viewingTrip.tripType} />
-                <DetailItem label="Vehicle Number" value={viewingTrip.vehicleNumber} colorClass="text-blue-300" />
+                <DetailItem label="Vehicle Number" value={viewingTrip.vehicleNumber} colorClass="text-blue-300" onCopy={handleCopyVehicleNumber} />
                 <DetailItem label="GP Number" value={viewingTrip.gpNumber || (viewingTrip.description.match(/^GP: (.*?)\./)?.[1] || 'N/A')} colorClass="text-emerald-400" />
                 <DetailItem label="DM ID" value={viewingTrip.dmId} />
                 <DetailItem label="Driver ID" value={viewingTrip.driverId} />
