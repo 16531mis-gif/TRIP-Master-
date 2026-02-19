@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { Routes, Route, Link, useNavigate, useLocation, Navigate } from 'react-router-dom';
 import UserPanel from './components/UserPanel';
@@ -143,6 +142,14 @@ const App: React.FC = () => {
                 </div>
               </div>
               <div className="flex items-center space-x-2">
+                <button 
+                  onClick={loadTrips} 
+                  className="px-3 py-2 rounded-xl text-zinc-400 hover:bg-white/5 hover:text-white transition-all duration-300 disabled:cursor-not-allowed disabled:text-blue-500"
+                  title="Refresh Data"
+                  disabled={loading}
+                >
+                  <i className={`fas fa-sync-alt ${loading ? 'fa-spin' : ''}`}></i>
+                </button>
                 <Link to="/" className={`px-4 py-2 rounded-xl text-xs font-black uppercase tracking-widest transition-all duration-300 flex items-center ${location.pathname === '/' ? 'bg-blue-600' : 'hover:bg-white/5'}`}>
                   <i className="fas fa-plus-circle mr-2"></i>Entry
                 </Link>
