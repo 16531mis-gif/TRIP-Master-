@@ -13,27 +13,12 @@ interface UserPanelProps {
 const UserPanel: React.FC<UserPanelProps> = ({ onAddTrip, settings, currentUserId }) => {
   const [status, setStatus] = useState<{ type: 'success' | 'error' | 'idle', message: string }>({ type: 'idle', message: '' });
 
-  const handleWhatsAppShare = (trip: TripData) => {
-    const text = `*Trip Information*%0A` +
-      `Date: ${trip.date}%0A` +
-      `Type: ${trip.tripType}%0A` +
-      `Vehicle: ${trip.vehicleNumber}%0A` +
-      `DM ID: ${trip.dmId}%0A` +
-      `Driver ID: ${trip.driverId}%0A` +
-      `Phone: ${trip.phoneNumber}%0A` +
-      `Description: ${trip.description}`;
-    
-    const url = `https://wa.me/${settings.whatsappDefaultNumber}?text=${text}`;
-    window.open(url, '_blank');
-  };
-
   const handleSubmit = async (data: TripData) => {
     setStatus({ type: 'idle', message: 'Encrypting Payload...' });
     const success = await onAddTrip(data);
     if (success) {
       if (settings.googleSheetsUrl) saveToGoogleSheets(data, settings.googleSheetsUrl);
       setStatus({ type: 'success', message: 'Data Saved and Cleaned.' });
-      setTimeout(() => handleWhatsAppShare(data), 1000);
     } else {
       setStatus({ type: 'error', message: 'Sync failed.' });
     }

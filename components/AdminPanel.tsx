@@ -256,7 +256,6 @@ const AdminPanel: React.FC<AdminPanelProps> = ({ trips, onDeleteTrip, onUpdateTr
                       </td>
                       <td className="px-10 py-8">
                         <div className="flex items-center justify-center space-x-2">
-                          <button onClick={() => handleWhatsAppShare(trip)} className="w-9 h-9 flex items-center justify-center text-emerald-600 hover:bg-emerald-600/10 rounded-xl transition-all border border-white/5"><i className="fab fa-whatsapp"></i></button>
                           <button onClick={() => handlePrint(trip)} className="w-9 h-9 flex items-center justify-center text-blue-500 hover:bg-blue-500/10 rounded-xl transition-all border border-white/5"><i className="fas fa-print"></i></button>
                           <button onClick={() => setViewingTrip(trip)} className="w-9 h-9 flex items-center justify-center text-sky-500 hover:bg-sky-500/10 rounded-xl transition-all border border-white/5"><i className="fas fa-eye"></i></button>
                           {currentUserId === '145531' && (
