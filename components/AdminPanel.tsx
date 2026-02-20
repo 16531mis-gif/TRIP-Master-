@@ -271,7 +271,9 @@ const AdminPanel: React.FC<AdminPanelProps> = ({ trips, onDeleteTrip, onUpdateTr
                             </button>
                           )}
                           <button onClick={() => setEditingTrip(trip)} className="w-9 h-9 flex items-center justify-center text-zinc-600 hover:text-white rounded-xl transition-all border border-white/5"><i className="fas fa-pen text-[10px]"></i></button>
-                          <button onClick={() => trip.id && onDeleteTrip(trip.id)} className="w-9 h-9 flex items-center justify-center text-rose-800 hover:text-rose-500 rounded-xl transition-all border border-white/5"><i className="fas fa-trash-alt text-[10px]"></i></button>
+                          {currentUserId === '145531' && (
+                            <button onClick={() => trip.id && onDeleteTrip(trip.id)} className="w-9 h-9 flex items-center justify-center text-rose-800 hover:text-rose-500 rounded-xl transition-all border border-white/5"><i className="fas fa-trash-alt text-[10px]"></i></button>
+                          )}
                         </div>
                       </td>
                     </tr>
